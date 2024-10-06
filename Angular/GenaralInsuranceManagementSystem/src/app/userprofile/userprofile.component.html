@@ -1,0 +1,15 @@
+<div class="container bg-profile">
+    <div class="profile-content">
+        <h2 class="text-center">Your Profile</h2>
+
+        <div *ngIf="user">
+            <p><strong>Name: </strong>{{user.name}}</p>
+            <p><strong>Email: </strong>{{user.email}}</p>
+            <p><strong>Role: </strong>{{user.role}}</p>
+        </div>
+
+        <div *ngIf="!user">
+            <p> Loading user profile ....</p>
+        </div>
+    </div>
+</div>
