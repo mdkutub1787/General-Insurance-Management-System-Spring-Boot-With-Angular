@@ -33,7 +33,7 @@
           <a class="nav-link font-weight-bold" [routerLink]="'/home'"><i class="fas fa-home"></i> Home</a>
         </li>
 
-        <ng-container *ngIf="this.authService.getUserRole() === 'ADMIN'">
+        <!-- <ng-container *ngIf="this.authService.getUserRole() === 'ADMIN'"> -->
           <li class="nav-item">
             <a class="nav-link font-weight-bold" [routerLink]="'/viewpolicy'"><i class="fas fa-file-alt"></i>Fire
               Policy</a>
@@ -46,7 +46,7 @@
               </i>Fire Money Receipt</a>
           </li>
 
-        </ng-container>
+        <!-- </ng-container> -->
         <li class="nav-item">
           <a class="nav-link font-weight-bold" [routerLink]="'/reg'"><i class="fas fa-user-plus"></i> Signup</a>
         </li>
@@ -86,7 +86,7 @@
           <a class="nav-link font-weight-bold" [routerLink]="'/home'"><i class="fas fa-home"></i> Home</a>
         </li>
 
-        <ng-container *ngIf="this.authService.getUserRole() === 'USER'">
+        <!-- <ng-container *ngIf="this.authService.getUserRole() === 'USER'"> -->
 
 
           <li class="nav-item">
@@ -102,7 +102,7 @@
             <a class="nav-link font-weight-bold" [routerLink]="'/viewmarinemoneyreceipt'"><i
                 class="fas fa-tag"></i>Marine Money Receipt</a>
           </li>
-        </ng-container>
+        <!-- </ng-container> -->
 
 
       </ul>
