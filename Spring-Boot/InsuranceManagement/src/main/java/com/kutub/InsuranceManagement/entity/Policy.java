@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Entity
@@ -65,4 +67,16 @@ public class Policy {
     @OneToMany(mappedBy = "policy", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Bill> bills;
 
+    // Custom setter for periodFrom
+    public void setPeriodFrom(String periodFrom) {
+        this.periodFrom = periodFrom;
+        setPeriodToAutomatically();
+    }
+
+    // Automatically sets periodTo to one year after periodFrom
+    private void setPeriodToAutomatically() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate fromDate = LocalDate.parse(this.periodFrom, formatter);
+        this.periodTo = fromDate.plusYears(1).format(formatter);
+    }
 }
