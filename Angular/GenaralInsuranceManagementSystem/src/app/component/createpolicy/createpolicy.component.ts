@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   templateUrl: './createpolicy.component.html',
   styleUrls: ['./createpolicy.component.css']
 })
-export class CreatepolicyComponent implements OnInit{
+export class CreatepolicyComponent implements OnInit {
 
   policy: PolicyModel = new PolicyModel();
   errorMessage: string = '';
@@ -19,16 +19,13 @@ export class CreatepolicyComponent implements OnInit{
     private router: Router
   ) {}
 
-
   ngOnInit(): void {
     const today = new Date();
     const formattedDate = today.toISOString().split('T')[0]; 
-    this.policy.date = formattedDate;
-    this.policy.owner = 'The Insured';  
-    this.policy.coverage = 'Fire &/or Lightning only'; 
-    
-}
-
+    this.policy.date = formattedDate; // Setting the default date
+    this.policy.owner = 'The Insured'; // Default value for owner
+    this.policy.coverage = 'Fire &/or Lightning only'; // Default value for coverage
+  }
 
   createPolicy() {
     this.policyService.createPolicy(this.policy)
@@ -43,4 +40,16 @@ export class CreatepolicyComponent implements OnInit{
         }
       });
   }
+
+  updatePeriodTo(periodFrom: string) {
+    if (periodFrom) {
+      const fromDate = new Date(periodFrom);
+      const toDate = new Date(fromDate);
+      toDate.setFullYear(toDate.getFullYear() + 1); // Add one year to the selected date
+      this.policy.periodTo = toDate.toISOString().substring(0, 10); // Format date as YYYY-MM-DD
+    } else {
+      this.policy.periodTo = ''; // Reset the periodTo if periodFrom is cleared
+    }
+  }
+
 }
