@@ -29,8 +29,13 @@ public class MarineInsuranceBillController {
     }
 
     @PutMapping("/update/{id}")
-    public  void updateMarineInsuranceBill(@RequestBody MarineInsuranceBill mb){
-        marineInsuranceBillService.saveMarineInsuranceBill(mb);
+    public ResponseEntity<String> updateMarineBill(@PathVariable int id, @RequestBody MarineInsuranceBill mb) {
+        try {
+            marineInsuranceBillService.updateMarineInsuranceBill(mb, id);
+            return ResponseEntity.ok("Marine  Bill updated successfully.");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
     }
 
     @DeleteMapping("/delete/{id}")
