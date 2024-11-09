@@ -31,9 +31,14 @@ public class BillController {
     }
 
 
-    @PutMapping("/update/{id}")
-    public  void updateBill(@RequestBody Bill b){
-        billService.saveBill(b);
+   @PutMapping("/update/{id}")
+    public ResponseEntity<String> updateBill(@PathVariable int id, @RequestBody Bill b) {
+        try {
+            billService.updateBill(b, id);
+            return ResponseEntity.ok("Bill updated successfully.");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
     }
 
 
