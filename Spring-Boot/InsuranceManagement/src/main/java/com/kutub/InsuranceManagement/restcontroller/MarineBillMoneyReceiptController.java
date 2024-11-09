@@ -36,13 +36,15 @@ public class MarineBillMoneyReceiptController {
         return new ResponseEntity<>(savedReceipt, HttpStatus.CREATED);
     }
 
-    // Update an existing receipt
+     // Update an existing receipt
     @PutMapping("/update/{id}")
-    public ResponseEntity<MarineBillMoneyReceipt> updateMarineBillMoneyReceipt(
-            @RequestBody MarineBillMoneyReceipt mr,
-            @PathVariable long id) {
-        MarineBillMoneyReceipt updatedReceipt = marineBillMoneyReceiptService.updateMarineBillMoneyReceipt(mr, id);
-        return ResponseEntity.ok(updatedReceipt);
+    public ResponseEntity<String> updateMarineBillMoneyReceipt(@PathVariable long id, @RequestBody MarineBillMoneyReceipt mr) {
+        try {
+            marineBillMoneyReceiptService.updateMarineBillMoneyReceipt(mr, id);
+            return ResponseEntity.ok("Marine Money  Receipt updated successfully.");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
     }
 
     // Delete a receipt by ID
