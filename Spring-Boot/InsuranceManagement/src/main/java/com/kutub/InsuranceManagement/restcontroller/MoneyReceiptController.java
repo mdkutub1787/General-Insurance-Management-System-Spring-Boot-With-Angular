@@ -1,6 +1,8 @@
 package com.kutub.InsuranceManagement.restcontroller;
 
+import com.kutub.InsuranceManagement.entity.Bill;
 import com.kutub.InsuranceManagement.entity.MoneyReceipt;
+import com.kutub.InsuranceManagement.entity.Policy;
 import com.kutub.InsuranceManagement.service.MoneyReceiptService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
