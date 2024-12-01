@@ -1,6 +1,7 @@
 package com.kutub.InsuranceManagement.restcontroller;
 
 
+import com.kutub.InsuranceManagement.entity.Bill;
 import com.kutub.InsuranceManagement.entity.MarineInsuranceBill;
 import com.kutub.InsuranceManagement.service.MarineInsuranceBillService;
 import org.springframework.beans.factory.annotation.Autowired;
