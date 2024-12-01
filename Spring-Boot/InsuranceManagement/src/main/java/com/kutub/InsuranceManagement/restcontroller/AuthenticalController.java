@@ -1,11 +1,16 @@
 package com.kutub.InsuranceManagement.restcontroller;
 
 import com.kutub.InsuranceManagement.entity.AuthenticationResponse;
+import com.kutub.InsuranceManagement.entity.Token;
 import com.kutub.InsuranceManagement.entity.User;
+import com.kutub.InsuranceManagement.repository.TokenRepository;
 import com.kutub.InsuranceManagement.service.AuthService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
@@ -13,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 public class AuthenticalController {
 
     private final AuthService authService;
+    private final TokenRepository tokenRepository;
 
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(
@@ -49,6 +55,7 @@ public class AuthenticalController {
         String response = authService.activateUser(id);
         return ResponseEntity.ok(response);
     }
+
 
 
 }
