@@ -1,12 +1,15 @@
 package com.kutub.InsuranceManagement.service;
 
+import com.kutub.InsuranceManagement.entity.Bill;
 import com.kutub.InsuranceManagement.entity.MarineBillMoneyReceipt;
 import com.kutub.InsuranceManagement.entity.MarineInsuranceBill;
+import com.kutub.InsuranceManagement.entity.MoneyReceipt;
 import com.kutub.InsuranceManagement.repository.MarineBillMoneyReceiptRepo;
 import com.kutub.InsuranceManagement.repository.MarineInsuranceBillRepo;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
