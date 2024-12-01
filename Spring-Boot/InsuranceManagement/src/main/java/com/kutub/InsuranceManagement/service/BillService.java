@@ -18,6 +18,7 @@ public class BillService {
     @Autowired
     private PolicyRepository policyRepository;
 
+
     // Get all Bills
     public List<Bill> getAllBill() {
         return billRepository.findAll();
@@ -41,16 +42,17 @@ public class BillService {
 
     // Update an existing Bill by ID
     public Bill updateBill(Bill updatedBill, int id) {
+        // Fetch the existing bill
         Bill existingBill = billRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Bill not found with ID: " + id));
 
-        // Update the fields
+        // Update fields
         existingBill.setFire(updatedBill.getFire());
         existingBill.setRsd(updatedBill.getRsd());
-        existingBill.setTax(updatedBill.getTax());
-        existingBill.setPolicy(updatedBill.getPolicy());
 
-        // Recalculate the premiums
+        // Tax rate is fixed at 15%, no update needed
+
+        // Recalculate premiums
         calculatePremiums(existingBill);
 
         // Save the updated bill
@@ -71,15 +73,7 @@ public class BillService {
                 .orElseThrow(() -> new RuntimeException("Bill not found with ID: " + id));
     }
 
-    // Find bills by policyholder name
-    public List<Bill> getBillsByPolicyholder(String policyholder) {
-        return billRepository.findBillsByPolicyholder(policyholder);
-    }
 
-    // Find bills by the associated policy ID
-    public List<Bill> findBillByPolicyId(int policyId) {
-        return billRepository.findBillsByPolicyId(policyId);
-    }
 
     // Calculation method for premiums
     private void calculatePremiums(Bill bill) {
@@ -105,5 +99,31 @@ public class BillService {
     // Method to round to two decimal places
     private double roundToTwoDecimalPlaces(double value) {
         return Math.round(value * 100.0) / 100.0;
+    }
+
+    // Update all bills when policy sumInsured changes
+    public void updateBillsForPolicy(Policy updatedPolicy) {
+        // Fetch bills associated with the policy
+        List<Bill> bills = billRepository.findBillsByPolicyId(updatedPolicy.getId());
+
+        // Update each bill
+        for (Bill bill : bills) {
+            bill.setPolicy(updatedPolicy); // Update policy reference
+            calculatePremiums(bill); // Recalculate premiums
+            billRepository.save(bill); // Save the updated bill
+        }
+    }
+
+
+
+
+    // Find bills by policyholder name
+    public List<Bill> getBillsByPolicyholder(String policyholder) {
+        return billRepository.findBillsByPolicyholder(policyholder);
+    }
+
+    // Find bills by the associated policy ID
+    public List<Bill> findBillByPolicyId(int policyId) {
+        return billRepository.findBillsByPolicyId(policyId);
     }
 }
